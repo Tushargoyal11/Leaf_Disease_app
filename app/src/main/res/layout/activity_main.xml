@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#121212"
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,7 +34,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/imageView2"
+                    android:id="@+id/imageView"
                     android:layout_width="154dp"
                     android:layout_height="192dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -53,7 +54,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.491"
-                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.105" />
 
@@ -67,7 +68,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.51"
-                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
                     app:layout_constraintTop_toBottomOf="@+id/textView"
                     app:layout_constraintVertical_bias="0.292" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -111,7 +112,7 @@
                             android:id="@+id/textView4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="< Information about the Disease..... >"
+                            android:text=" Information about the Disease..... "
                             android:textSize="20sp" />
 
                         <TextView
@@ -126,7 +127,7 @@
                             android:id="@+id/textView6"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="< Information Regarding the cure.... >"
+                            android:text=" Information Regarding the cure.... "
                             android:textSize="24sp" />
 
                     </LinearLayout>
@@ -149,30 +150,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageButton
-                    android:id="@+id/imageButton"
-                    android:layout_width="174dp"
-                    android:layout_height="194dp"
-                    android:layout_marginStart="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.49"
-                    app:srcCompat="@android:drawable/ic_menu_upload" />
-
-                <ImageButton
-                    android:id="@+id/imageButton2"
-                    android:layout_width="177dp"
-                    android:layout_height="197dp"
-                    android:layout_marginTop="26dp"
-                    android:layout_marginBottom="35dp"
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="359dp"
+                    android:layout_height="80dp"
+                    android:text="Analyse"
+                    android:textColor="@color/Text_Primary"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.6"
-                    app:layout_constraintStart_toEndOf="@+id/imageButton"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.09"
-                    app:srcCompat="@android:drawable/ic_menu_send" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/upload_image_button" />
+
+                <Button
+                    android:id="@+id/upload_image_button"
+                    android:layout_width="356dp"
+                    android:layout_height="78dp"
+                    android:text="Upload Image"
+                    android:textColor="@color/Text_Primary"
+                    app:layout_constraintBottom_toTopOf="@+id/button2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
