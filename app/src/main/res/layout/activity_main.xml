@@ -22,120 +22,50 @@
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="409dp"
-            android:layout_height="238dp"
+            android:layout_width="407dp"
+            android:layout_height="459dp"
             android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="482dp">
 
                 <ImageView
                     android:id="@+id/imageView"
-                    android:layout_width="154dp"
-                    android:layout_height="192dp"
+                    android:layout_width="228dp"
+                    android:layout_height="210dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.062"
+                    app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView"
+                    app:layout_constraintVertical_bias="0.304"
                     app:srcCompat="@android:drawable/ic_menu_gallery" />
 
                 <TextView
                     android:id="@+id/textView"
-                    android:layout_width="203dp"
-                    android:layout_height="39dp"
-                    android:text="IMAGE ANALYSIS"
-                    android:textSize="24sp"
+                    android:layout_width="348dp"
+                    android:layout_height="139dp"
+                    android:layout_marginTop="60dp"
+                    android:text="Detect Potato Leaf Disease "
+                    android:textAlignment="center"
+                    android:textColor="@color/Text_Primary"
+                    android:textSize="48sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.491"
-                    app:layout_constraintStart_toEndOf="@+id/imageView"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.105" />
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="198dp"
-                    android:layout_height="134dp"
-                    android:text="Name of Detection"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.51"
-                    app:layout_constraintStart_toEndOf="@+id/imageView"
-                    app:layout_constraintTop_toBottomOf="@+id/textView"
-                    app:layout_constraintVertical_bias="0.292" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout2"
-            android:layout_width="409dp"
-            android:layout_height="242dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ScrollView
-                    android:layout_width="407dp"
-                    android:layout_height="240dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical" >
-
-                        <TextView
-                            android:id="@+id/textView3"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="Results"
-                            android:textSize="34sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/textView4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text=" Information about the Disease..... "
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:id="@+id/textView5"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Cure"
-                            android:textSize="34sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/textView6"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text=" Information Regarding the cure.... "
-                            android:textSize="24sp" />
-
-                    </LinearLayout>
-                </ScrollView>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-
-        <LinearLayout
             android:layout_width="407dp"
             android:layout_height="247dp"
             android:layout_marginEnd="2dp"
@@ -143,8 +73,9 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
