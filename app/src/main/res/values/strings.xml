@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Leaf Disease app</string>
+    <string name="info">Infomation on Health of the plant</string>
+    <string name="cure">Cure of the Illness</string>
 </resources>

@@ -12,5 +12,19 @@
     <color name="green_200">#A5D6A7</color>  <!-- Dark mode accent -->
     <color name="green_900">#1B5E20</color>  <!-- Dark mode background -->
     <color name="splash_green">#4CAF50</color> <!-- Material Green 500 -->
+    <color name="green_700">#388E3C</color> <!-- Darker green -->
+    <!-- Primary Greens -->
+    <color name="green_50">#E8F5E9</color>
+    <color name="green_100">#C8E6C9</color>
+    <color name="green_600">#43A047</color>
+    <color name="green_800">#2E7D32</color>
 
+    <!-- Background Gradient -->
+    <color name="gradient_start">#4CAF50</color>  <!-- Light green -->
+    <color name="gradient_end">#FFFFFF</color>    <!-- White -->
+    <!-- Optional mid-color -->
+    <color name="gradient_mid">#A5D6A7</color>   <!-- Medium green -->
+    <color name="white_90">#E6FFFFFF</color>
+    <!-- Utility -->
+    <color name="black_60">#99000000</color>
 </resources>

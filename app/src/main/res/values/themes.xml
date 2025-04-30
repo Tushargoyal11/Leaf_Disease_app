@@ -10,4 +10,28 @@
         <item name="android:windowBackground">@drawable/splash_background</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
+    <style name="Button.Primary" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/green_500</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:paddingVertical">12dp</item>
+        <item name="shapeAppearanceOverlay">@style/Shape.Rounded</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+    <style name="Shape.Rounded" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+    <style name="GreenButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/green_500</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="android:paddingVertical">12dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- Dark Green Button Variant -->
+    <style name="GreenButton.Dark" parent="GreenButton">
+        <item name="backgroundTint">@color/green_700</item>
+        <item name="android:elevation">4dp</item>
+    </style>
 </resources>
