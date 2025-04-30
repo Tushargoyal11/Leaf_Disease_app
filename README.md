@@ -1,5 +1,27 @@
 Note: I've included Model code, Flask Code and Android code files in this repo. You will find those files at the start. Below i've provided the structure of the project files.
 
+# ScreenShots
+<figure>
+  <img src="startupscreen.png" width="400" alt="Disease Analysis">
+  <figcaption><em>Startup Screen</em></figcaption>
+</figure>
+<figure>
+  <img src="splash screen.png" width="400" alt="Disease Analysis">
+  <figcaption><em>Splash screen while loading</em></figcaption>
+</figure>
+<figure>
+  <img src="home screen.png" width="400" alt="Disease Analysis">
+  <figcaption><em>Home Screen preview</em></figcaption>
+</figure>
+<figure>
+  <img src="upload image.png" width="400" alt="Disease Analysis">
+  <figcaption><em>Screenshot of gallery from the app while uploading image</em></figcaption>
+</figure>
+<figure>
+  <img src="Result screen.png" width="400" alt="Disease Analysis">
+  <figcaption><em>AI analysis results with confidence score</em></figcaption>
+</figure>
+
 # Project Structure Overview
 
 This repository contains an integrated Flask backend and Android application for potato leaf disease detection. Below is the organization of key files:
@@ -44,3 +66,4 @@ project-root/
 
 3. Model files are directly loaded by:
    - `model_loader.py` in the Flask application
+  
