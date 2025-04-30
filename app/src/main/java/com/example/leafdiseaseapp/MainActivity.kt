@@ -6,6 +6,14 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import android.widget.Toast
 
+import okhttp3.MediaType
+import okhttp3.RequestBody
+import okhttp3.MultipartBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.File
+
 import android.content.ContentValues
 import android.content.Intent
 import android.net.Uri
@@ -13,9 +21,14 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
+import android.view.WindowInsetsAnimation
 import androidx.appcompat.app.AppCompatActivity
 import com.example.leafdiseaseapp.databinding.ActivityMainBinding
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class MainActivity : AppCompatActivity() {
@@ -41,6 +54,12 @@ class MainActivity : AppCompatActivity() {
             }) {
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, PERMISSION_REQUEST_CODE)
         }
+    }
+
+    private fun resetMainActivity() {
+        binding.ivLeafImage.setImageDrawable(null)
+        binding.tvPlaceholder.visibility = View.VISIBLE
+        binding.btnAnalyze.isEnabled = false
     }
     private fun setupClickListeners() {
         binding.btnGallery.setOnClickListener { openGallery() }
@@ -107,18 +126,125 @@ class MainActivity : AppCompatActivity() {
             binding.btnAnalyze.isEnabled = true
         }
     }
-
     private fun analyzeImage() {
-        // Your image analysis logic here
+        // Check if image is selected
+        if (imageUri == null) {
+            Toast.makeText(this, "Please select an image first", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         binding.progressBar.visibility = View.VISIBLE
         binding.btnAnalyze.isEnabled = false
 
-        // Simulate analysis (replace with actual logic)
-        Handler(Looper.getMainLooper()).postDelayed({
+        try {
+            Log.d("API_DEBUG", "Starting analysis for URI: $imageUri")
+            val path = getRealPathFromURI(imageUri!!) ?: run {
+                Log.e("API_DEBUG", "Failed to get path from URI")
+                return
+            }
+            Log.d("API_DEBUG", "Resolved path: $path")
+
+            val file = File(path).also {
+                Log.d("API_DEBUG", "File exists: ${it.exists()}, size: ${it.length()} bytes")
+            }
+            val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+            val filePart = MultipartBody.Part.createFormData("file", file.name, requestFile)
+
+            // Make API call
+            Log.d("API_DEBUG", "Sending request to API...")
+            ApiClient.plantDiseaseService.analyzeImage(filePart).enqueue(
+                object : Callback<PredictionResponse> {
+                    override fun onResponse(
+                        call: Call<PredictionResponse>,
+                        response: Response<PredictionResponse>
+                    ) {
+                        Log.d("API_DEBUG", "Response received. Code: ${response.code()}")
+
+                        if (!response.isSuccessful) {
+                            Log.e("API_DEBUG", "Unsuccessful response: ${response.errorBody()?.string()}")
+                        }
+                        binding.progressBar.visibility = View.GONE
+
+                        if (response.isSuccessful) {
+                            response.body()?.let { result ->
+                                if (result.error != null) {
+                                    Toast.makeText(this@MainActivity, result.error, Toast.LENGTH_LONG).show()
+                                } else {
+                                    // Start ResultActivity with prediction data
+                                    Intent(this@MainActivity, ResultActivity::class.java).apply {
+                                        putExtra("disease_name", result.prediction)
+                                        putExtra("confidence", result.confidence)
+                                        putExtra("disease_info", getDiseaseInfo(result.prediction))
+                                        putExtra("cure_info", getCureInfo(result.prediction))
+                                        startActivity(this)
+                                    }
+                                }
+                            }
+                        } else {
+                            Toast.makeText(this@MainActivity, "Analysis failed: ${response.message()}", Toast.LENGTH_LONG).show()
+                        }
+                        binding.btnAnalyze.isEnabled = true
+                    }
+
+                    override fun onFailure(call: Call<PredictionResponse>, t: Throwable) {
+                        Log.e("API_DEBUG", "API call failed", t)
+                        binding.progressBar.visibility = View.GONE
+                        binding.btnAnalyze.isEnabled = true
+                        Toast.makeText(this@MainActivity, "Network error: ${t.message}", Toast.LENGTH_LONG).show()
+                    }
+                }
+            )
+        } catch (e: Exception) {
+            Log.e("API_DEBUG", "Analysis failed", e)
             binding.progressBar.visibility = View.GONE
-            Toast.makeText(this, "Analysis complete", Toast.LENGTH_SHORT).show()
             binding.btnAnalyze.isEnabled = true
-        }, 2000)
+            Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+        }
+    }
+
+
+    // Helper function to get disease info based on prediction
+    private fun getDiseaseInfo(diseaseName: String): String {
+        return when(diseaseName) {
+            "Early Blight" -> getString(R.string.early_blight_info)
+            "Fungal Diseases" -> getString(R.string.fungal_diseases_info)
+            "Healthy" -> getString(R.string.healthy_info)
+            "Late Blight" -> getString(R.string.late_blight_info)
+            "Plant Pests" -> getString(R.string.plant_pests_info)
+            "Potato Cyst Nematode" -> getString(R.string.potato_cyst_nematode_info)
+            "Potato Virus" -> getString(R.string.potato_virus_info)
+            else -> getString(R.string.default_disease_info)
+        }
+    }
+
+    // Helper function to get cure info based on prediction
+    private fun getCureInfo(diseaseName: String): String {
+        return when(diseaseName) {
+            "Early Blight" -> getString(R.string.early_blight_cure)
+            "Fungal Diseases" -> getString(R.string.fungal_diseases_cure)
+            "Healthy" -> getString(R.string.healthy_cure)
+            "Late Blight" -> getString(R.string.late_blight_cure)
+            "Plant Pests" -> getString(R.string.plant_pests_cure)
+            "Potato Cyst Nematode" -> getString(R.string.potato_cyst_nematode_cure)
+            "Potato Virus" -> getString(R.string.potato_virus_cure)
+            else -> getString(R.string.default_cure_info)
+        }
+    }
+
+    // Helper function to get real path from URI
+    private fun getRealPathFromURI(uri: Uri): String? {
+        return try {
+            contentResolver.openInputStream(uri)?.use { inputStream ->
+                val tempFile = File.createTempFile("upload", ".jpg", cacheDir)
+                tempFile.outputStream().use { outputStream ->
+                    inputStream.copyTo(outputStream)
+                }
+                tempFile.absolutePath
+            }
+        } catch (e: Exception) {
+            Log.e("FILE_ERROR", "Failed to get file path", e)
+            null
+        }
     }
 
 }
